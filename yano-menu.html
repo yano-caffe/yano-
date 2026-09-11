@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yano — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#150e0b;
+    --bg-1:#1c130f;
+    --line:#3a2a22;
+    --cream:#f3e9db;
+    --muted:#a9917f;
+    --orange:#e2572b;
+    --orange-dim:#8a3a22;
+    --gold:#e7a24a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg-0);}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--cream);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    perspective:1400px;
+  }
+
+  .stage{
+    position:relative;
+    max-width:980px;
+    margin:0 auto;
+    padding:64px 40px 48px;
+    background:
+      radial-gradient(600px 300px at 50% -80px, rgba(226,87,43,0.28), transparent 70%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-0) 40%);
+    overflow:hidden;
+    transform-style:preserve-3d;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.6);
+    border-radius:18px;
+    transition:transform 0.15s ease-out;
+    will-change:transform;
+  }
+
+  /* decorative floating beans */
+  .bean{
+    position:absolute;
+    width:22px;height:30px;
+    border-radius:60% 60% 60% 60% / 65% 65% 35% 35%;
+    background:radial-gradient(circle at 32% 28%, #ff8552, var(--orange) 55%, var(--orange-dim) 100%);
+    opacity:0.16;
+    animation:drift 14s ease-in-out infinite;
+    box-shadow:0 10px 16px -6px rgba(0,0,0,0.55), inset -3px -3px 5px rgba(0,0,0,0.35);
+    transform-style:preserve-3d;
+  }
+  .bean::after{
+    content:"";
+    position:absolute;
+    left:50%;top:8%;
+    width:2px;height:84%;
+    background:rgba(0,0,0,0.4);
+    transform:translateX(-50%) rotate(6deg);
+    border-radius:2px;
+  }
+  .bean.b1{top:60px;left:-10px;transform:rotate(-15deg);animation-delay:0s;}
+  .bean.b2{top:220px;right:-8px;transform:rotate(20deg) scale(1.3);animation-delay:2s;}
+  .bean.b3{bottom:140px;left:10px;transform:rotate(35deg) scale(0.8);animation-delay:4s;}
+  .bean.b4{bottom:40px;right:60px;transform:rotate(-25deg) scale(1.1);animation-delay:1s;}
+  .bean.b5{top:420px;left:44%;transform:rotate(10deg) scale(0.7);opacity:0.1;animation-delay:3s;}
+
+  @keyframes drift{
+    0%,100%{transform:translateY(0) rotateY(0deg) rotate(var(--r,0deg));}
+    50%{transform:translateY(-18px) rotateY(180deg) rotate(var(--r,0deg));}
+  }
+
+  /* header */
+  .header{
+    position:relative;
+    text-align:center;
+    padding-bottom:36px;
+    opacity:0;
+    animation:riseIn 0.9s ease-out 0.1s forwards;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .mark-wrap{
+    position:relative;
+    width:76px;height:76px;
+    margin:0 auto 14px;
+  }
+  .mark{
+    width:100%;height:100%;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #ff8a55, var(--orange) 55%, var(--orange-dim) 100%);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    z-index:2;
+    box-shadow:
+      inset -6px -8px 14px rgba(0,0,0,0.45),
+      inset 4px 5px 10px rgba(255,200,160,0.4),
+      0 18px 30px -8px rgba(226,87,43,0.55);
+    transform-style:preserve-3d;
+  }
+  .mark svg{width:34px;height:34px;}
+  .steam{
+    position:absolute;
+    left:50%;
+    top:-6px;
+    transform:translateX(-50%);
+    width:60px;height:70px;
+    z-index:1;
+    opacity:0.55;
+  }
+  .steam path{
+    fill:none;
+    stroke:var(--muted);
+    stroke-width:2.4;
+    stroke-linecap:round;
+    stroke-dasharray:60;
+    stroke-dashoffset:60;
+    animation:rise 4.5s ease-in-out infinite;
+  }
+  .steam path.p2{animation-delay:0.9s;}
+  .steam path.p3{animation-delay:1.8s;}
+  @keyframes rise{
+    0%{stroke-dashoffset:60; opacity:0; transform:translateY(6px);}
+    25%{opacity:0.7;}
+    70%{opacity:0.35;}
+    100%{stroke-dashoffset:0; opacity:0; transform:translateY(-14px);}
+  }
+
+  .brand{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:42px;
+    letter-spacing:1px;
+    margin:0;
+    color:var(--cream);
+  }
+  .brand .o{color:var(--orange);}
+  .tagline{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--muted);
+    font-size:15px;
+    margin:6px 0 0;
+  }
+
+  .divider{
+    display:flex;align-items:center;justify-content:center;
+    gap:14px;
+    margin:32px 0 8px;
+  }
+  .divider .rule{height:1px;width:120px;background:linear-gradient(90deg,transparent,var(--line));}
+  .divider .rule.r2{background:linear-gradient(90deg,var(--line),transparent);}
+  .divider .word{
+    font-size:12px;letter-spacing:4px;color:var(--orange);
+    font-weight:600;
+  }
+  .divider .bean-icon{
+    width:14px;height:18px;
+    border-radius:60% 60% 60% 60% / 65% 65% 35% 35%;
+    background:radial-gradient(circle at 30% 25%, #ff8a55, var(--orange) 60%, var(--orange-dim));
+    position:relative;
+    box-shadow:inset -2px -2px 4px rgba(0,0,0,0.45), 0 6px 10px -3px rgba(226,87,43,0.6);
+    animation:spin 6s linear infinite;
+    transform-style:preserve-3d;
+  }
+  .divider .bean-icon::after{
+    content:"";position:absolute;left:50%;top:10%;width:1.6px;height:80%;
+    background:rgba(0,0,0,0.5);transform:translateX(-50%) rotate(8deg);border-radius:2px;
+  }
+  @keyframes spin{ to{ transform:rotateY(360deg); } }
+
+  /* columns */
+  .columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    position:relative;
+    z-index:2;
+  }
+  .col-title{
+    display:flex;align-items:baseline;justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;margin-bottom:6px;
+  }
+  .col-title h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;font-size:18px;margin:0;
+    display:flex;align-items:center;gap:8px;
+  }
+  .col-title .icon{color:var(--orange);font-size:15px;}
+  .col-title .range{font-size:11px;color:var(--muted);letter-spacing:2px;}
+
+  .item{
+    display:flex;align-items:center;gap:10px;
+    padding:9px 0;
+    border-bottom:1px dotted var(--line);
+    opacity:0;
+    animation:fadeUp 0.5s ease-out forwards;
+    transition:background 0.25s ease, padding-right 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius:6px;
+    transform-style:preserve-3d;
+  }
+  .item:hover{
+    background:rgba(226,87,43,0.07);
+    padding-right:6px;
+    transform:translateZ(14px);
+    box-shadow:0 10px 18px -10px rgba(0,0,0,0.6);
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .icon-chip{
+    width:26px;height:26px;flex:none;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, rgba(226,87,43,0.28), rgba(226,87,43,0.08));
+    border:1px solid rgba(226,87,43,0.25);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset -2px -2px 4px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.06), 0 3px 6px rgba(0,0,0,0.35);
+    transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.4s ease;
+    transform-style:preserve-3d;
+  }
+  .icon-chip svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .item:hover .icon-chip{
+    background:radial-gradient(circle at 30% 25%, rgba(226,87,43,0.5), rgba(226,87,43,0.16));
+    box-shadow:inset -2px -2px 4px rgba(0,0,0,0.4), 0 6px 12px -2px rgba(226,87,43,0.45);
+    transform:rotateY(180deg) translateZ(4px);
+  }
+  .item:hover .icon-chip svg{stroke:var(--orange);transform:rotateY(180deg);}
+  .item .name{flex:1;font-size:14.5px;color:var(--cream);}
+  .item .price{
+    font-weight:600;font-size:14.5px;color:var(--orange);
+    white-space:nowrap;
+  }
+  .item .price sup{font-size:9px;margin-right:2px;color:var(--gold);}
+
+  .footer{
+    text-align:center;margin-top:40px;
+    padding-top:20px;border-top:1px solid var(--line);
+    position:relative;z-index:2;
+  }
+  .footer .cta{
+    font-family:'Fraunces',serif;font-style:italic;color:var(--muted);font-size:13px;margin:0;
+  }
+  .footer .handle{
+    font-size:12px;letter-spacing:2px;color:var(--cream);margin-top:4px;
+  }
+  .footer .beans-mini{display:inline-flex;gap:4px;margin-top:10px;}
+  .footer .beans-mini span{
+    width:9px;height:12px;border-radius:60% 60% 60% 60% / 65% 65% 35% 35%;
+    background:var(--orange);display:inline-block;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  .footer .beans-mini span:nth-child(2){animation-delay:0.3s;background:var(--gold);}
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:0.9;}
+    50%{transform:scale(1.25);opacity:0.5;}
+  }
+
+  @media (max-width:720px){
+    .columns{grid-template-columns:1fr;gap:8px;}
+    .stage{padding:48px 22px 32px;}
+    .brand{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="bean b1"></div>
+  <div class="bean b2"></div>
+  <div class="bean b3"></div>
+  <div class="bean b4"></div>
+  <div class="bean b5"></div>
+
+  <div class="header">
+    <div class="mark-wrap">
+      <svg class="steam" viewBox="0 0 60 70">
+        <path class="p1" d="M20 60 C10 48, 30 42, 22 30 C14 18, 28 14, 24 4"/>
+        <path class="p2" d="M32 60 C22 48, 42 42, 34 30 C26 18, 40 14, 36 4"/>
+        <path class="p3" d="M44 60 C34 48, 54 42, 46 30 C38 18, 52 14, 48 4"/>
+      </svg>
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <ellipse cx="12" cy="12" rx="8" ry="10" fill="#150e0b" opacity="0.85"/>
+          <path d="M12 3 C9 8 15 10 12 16 C10 20 13 21 12 21" stroke="#e2572b" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <h1 class="brand">yan<span class="o">o</span></h1>
+    <p class="tagline">Good drinks, better days</p>
+    <div class="divider">
+      <span class="rule"></span>
+      <span class="word">MENU</span>
+      <span class="bean-icon"></span>
+      <span class="rule r2"></span>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <div class="col-title">
+        <h2><span class="icon">☕</span>Tea &amp; Coffee Classics</h2>
+        <span class="range">01 — 20</span>
+      </div>
+      <div class="items" id="col1"></div>
+    </div>
+    <div class="col">
+      <div class="col-title">
+        <h2><span class="icon">✧</span>Espresso Bar &amp; Iced</h2>
+        <span class="range">21 — 40</span>
+      </div>
+      <div class="items" id="col2"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="cta">Always a good idea</p>
+    <div class="handle">@YANO_COFFEE</div>
+    <div class="beans-mini"><span></span><span></span></div>
+  </div>
+
+</div>
+
+<script>
+const ICONS = {
+  cup: '<svg viewBox="0 0 24 24"><path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M8 3.5c0 1-1 1-1 2M12 3.5c0 1-1 1-1 2M16 3.5c0 1-1 1-1 2"/></svg>',
+  tea: '<svg viewBox="0 0 24 24"><path d="M4 9h14v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/><path d="M16 10h2.5a2 2 0 0 1 0 4H16"/><path d="M9 3v2.5M13 3l-1 2.5"/></svg>',
+  leaf: '<svg viewBox="0 0 24 24"><path d="M5 18c8 1 13-4 13-13-9 0-13 5-13 13Z"/><path d="M5 18c2-4 5-7 9-9"/></svg>',
+  glassIce: '<svg viewBox="0 0 24 24"><path d="M6 4h12l-1.4 15.2a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8L6 4Z"/><rect x="9.5" y="9" width="3" height="3" rx="0.5"/><rect x="13" y="12" width="3" height="3" rx="0.5"/></svg>',
+  frappe: '<svg viewBox="0 0 24 24"><path d="M7 6h10l-1.2 13.5a2 2 0 0 1-2 1.5h-3.6a2 2 0 0 1-2-1.5L7 6Z"/><path d="M9 6c0-2 1.5-3.5 3-3.5S15 4 15 6"/><path d="M12 2.5V1"/></svg>',
+  pot: '<svg viewBox="0 0 24 24"><path d="M8 21V11a4 4 0 0 1 4-4v0a4 4 0 0 1 4 4v10"/><path d="M6 21h12"/><path d="M16 9c2.5 0 4 1.3 4 3s-1.5 2-3 2"/><path d="M12 3.5V2"/></svg>',
+  nut: '<svg viewBox="0 0 24 24"><path d="M12 3c4 0 6 3.5 6 8s-2.5 10-6 10-6-6-6-10 2-8 6-8Z"/><path d="M9 8c1 1 5 1 6 0"/></svg>',
+  apple: '<svg viewBox="0 0 24 24"><path d="M12 8c-3-3-8-1-8 4.5C4 17 8 21 11 21c.7 0 1.3-.2 1.9-.5.6.3 1.2.5 1.9.5 3 0 7-4 7-8.5C21.8 8 17 6 14 8"/><path d="M12 8c0-2 1-4 3-5"/></svg>',
+  bowl: '<svg viewBox="0 0 24 24"><path d="M3 11h18a9 6 0 0 1-9 8 9 6 0 0 1-9-8Z"/><path d="M9 5c1-1.5 5-1.5 6 0"/></svg>',
+  matcha: '<svg viewBox="0 0 24 24"><path d="M6 10h12l-1 7a3 3 0 0 1-3 2.5h-4A3 3 0 0 1 7 17l-1-7Z"/><path d="M9 10c-1-3 0-6 2-7M15 10c1-3 0-6-2-7"/></svg>',
+  drizzle: '<svg viewBox="0 0 24 24"><path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z"/><path d="M17 9h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M7 8c1-1 1-2.5 3-3M12 8c1-1 1-2.5 3-3"/></svg>',
+  mint: '<svg viewBox="0 0 24 24"><path d="M6 4h12l-1.4 15.2a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8L6 4Z"/><path d="M9 8c3-1 5-1 6 1.5-2.5 1.5-5 .5-6-1.5Z"/></svg>',
+  energy: '<svg viewBox="0 0 24 24"><path d="M6 4h12l-1.4 15.2a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8L6 4Z"/><path d="M13 8l-3 4h2.5L11 16l4-5h-2.5L13 8Z" fill="var(--gold)" stroke="none"/></svg>',
+};
+
+const col1 = [
+  ["Tea","35","tea"],["Anise, Mint & Hibiscus","35","leaf"],["Green Tea","40","leaf"],["Flavored Tea","40","tea"],
+  ["Iced Tea","50","glassIce"],["Tea Latte","65","cup"],["Karak Tea","65","pot"],["Herbal Mix","60","leaf"],
+  ["Apple Cider","80","apple"],["Hot Chocolate","120","drizzle"],["Classic Nescafé","100","cup"],["Turkish Coffee","60","pot"],
+  ["Turkish Coffee, Double","80","pot"],["Arabic Coffee","100","pot"],["French Coffee","95","cup"],["Hazelnut Coffee","100","nut"],
+  ["Flavored Coffee","110","cup"],["Sahlab","120","bowl"],["Espresso","80","cup"],["Espresso, Double","100","cup"],
+];
+const col2 = [
+  ["Macchiato","23","cup"],["Flat White","115","cup"],["Americano","100","cup"],["Latte","120","cup"],
+  ["Cappuccino","125","cup"],["Cortado","105","cup"],["Hot Mocha","150","drizzle"],["Hot Spanish Latte","155","cup"],
+  ["Matcha Latte","130","matcha"],["Iced Latte","120","glassIce"],["Iced Mocha","150","glassIce"],["Iced Spanish Latte","155","glassIce"],
+  ["Iced Spanish Latte, Caramel","165","glassIce"],["Iced Spanish Latte, Salted Caramel","175","glassIce"],["Classic Frappé","135","frappe"],["Caramel Frappé","165","frappe"],
+  ["Salted Caramel Frappé","175","frappe"],["Tiramisu Latte","180","cup"],["Mojito","140","mint"],["Mojito, Red Bull","180","energy"],
+];
+
+function render(list, elId, startDelay){
+  const el = document.getElementById(elId);
+  list.forEach((it,i)=>{
+    const row = document.createElement('div');
+    row.className='item';
+    row.style.animationDelay = (startDelay + i*0.035)+'s';
+    row.innerHTML = `<span class="icon-chip">${ICONS[it[2]]}</span><span class="name">${it[0]}</span><span class="price">${it[1]}<sup>EGP</sup></span>`;
+    el.appendChild(row);
+  });
+}
+render(col1,'col1',0.3);
+render(col2,'col2',0.3);
+
+const stage = document.querySelector('.stage');
+let rect = stage.getBoundingClientRect();
+window.addEventListener('resize', ()=>{ rect = stage.getBoundingClientRect(); });
+window.addEventListener('mousemove', (e)=>{
+  rect = stage.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width;
+  const y = (e.clientY - rect.top) / rect.height;
+  const rotY = (x - 0.5) * 10;
+  const rotX = (0.5 - y) * 8;
+  stage.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+});
+window.addEventListener('mouseleave', ()=>{
+  stage.style.transform = 'rotateX(0deg) rotateY(0deg)';
+});
+</script>
+</body>
+</html>
